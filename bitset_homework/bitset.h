@@ -1,10 +1,16 @@
 //includes
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <assert.h>
 
+#ifndef HEADERFILE_H
+#define HEADERFILE_H
 
-
-typedef char* BitSet;
+typedef struct BitSet{
+	char* bits;
+	int bits_len;
+} BitSet, *BitSet_p;
 
 //allocates and returns a pointer to a BitSet
 BitSet* allocBitSet(int num_bits);
@@ -28,13 +34,19 @@ int allocItem(BitSet* b);
 
 
 // frees the item at location i, first checking that it wasn't already free.
-void freeItem(BitSet b, int i);
+int freeItem(BitSet* b, int i);
 
 
 //reads, from file f, a Bit Set into the memory pointed to by b.
-void readBitSet(FILE f, BitSet* b);
+void readBitSet(char* filename, BitSet* b);
 
 
 
 //writes Bit Set b to file f
-void writeBitSet(FILE f, BitSet *b);
+void writeBitSet(char* filename, BitSet* b);
+
+// prints bitset to terminal for debugging
+void print_bitz(BitSet* b);
+
+#endif
+
